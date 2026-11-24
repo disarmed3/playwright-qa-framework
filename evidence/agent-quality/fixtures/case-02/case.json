@@ -1,0 +1,13 @@
+{
+  "caseId": "case-02",
+  "inputKind": "synthetic",
+  "sourceVersion": "v1",
+  "sourceDate": "2026-11-08",
+  "requirementPath": "requirement.md",
+  "evidencePaths": ["test-excerpt.txt", "run-summary.json"],
+  "missingObservations": [
+    "page snapshot or screenshot at the failing step (line 54)",
+    "page address and visible page state after pay-button was clicked",
+    "trace or network log of the payment request and its response"
+  ]
+}

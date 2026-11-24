@@ -1,0 +1,130 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run typecheck)",
+      "Bash(npm run test:list)",
+      "Bash(npm test)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "PowerShell(npm run typecheck)",
+      "PowerShell(npm run test:list)",
+      "PowerShell(npm test)",
+      "PowerShell(npm run test:safety)",
+      "PowerShell(git status)",
+      "PowerShell(git diff *)",
+      "PowerShell(git log *)"
+    ],
+    "ask": [
+      "Bash(npm run test:prod *)",
+      "Bash(npm install *)",
+      "Bash(npx playwright install *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "PowerShell(npm run test:prod *)",
+      "PowerShell(npm install *)",
+      "PowerShell(npx playwright install *)",
+      "PowerShell(git commit *)",
+      "PowerShell(git push *)",
+      "Bash(node scripts/jira-seed.mjs *)",
+      "PowerShell(node scripts/jira-seed.mjs *)",
+      "Bash(node scripts/jira/writeback.mjs execute *)",
+      "PowerShell(node scripts/jira/writeback.mjs execute *)"
+    ],
+    "deny": [
+      "mcp__claude_ai_Atlassian_Rovo",
+      "Bash(curl *atlassian*)",
+      "Bash(wget *atlassian*)",
+      "PowerShell(curl *atlassian*)",
+      "PowerShell(Invoke-RestMethod *atlassian*)",
+      "PowerShell(Invoke-WebRequest *atlassian*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Edit(.env*)",
+      "Read(./**/.auth/**)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./**/storage-state.json)",
+      "Read(./**/*storageState*.json)",
+      "Read(./.playwright-mcp/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/guard.mjs\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/vault-sync.mjs\" --from-hook"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/vault-sync.mjs\" --session-start"
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/session-preflight.mjs\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/stop-worklog.mjs\""
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/vault-sync.mjs\" --session-end"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/fleet-log.mjs\""
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/fleet-log.mjs\""
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,299 @@
+# Core CI (Week 5 Task 04). Rule: .claude/rules/95-ci-workflow.md.
+# - `static` runs the local checks with no browser, no secret and no contact with the app.
+# - `browser` needs a successful `static`; it runs the reviewed smoke group (or, by hand on main, the
+#   regression group) against the approved dev target only. BASE_URL and APP_ENV are never set here:
+#   the npm scripts pin APP_ENV=dev, and env/target.ts rejects anything else.
+# - `ci-result` is the one check to require later; a skipped job counts as passing for a required
+#   check, so it fails unless both jobs succeeded.
+# - There is no schedule. No AI, MCP, Slack or database call happens in this file.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: 'smoke is read-only; regression writes qa-auto- records on dev and runs only from main'
+        type: choice
+        options: [smoke, regression]
+        default: smoke
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  static:
+    name: Static checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    concurrency:
+      group: ci-static-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Target settings stay unset
+        run: |
+          test -z "${BASE_URL-}" || { echo 'BASE_URL must be unset'; exit 1; }
+          test -z "${LOCAL_SANDBOX_DIR-}" || { echo 'LOCAL_SANDBOX_DIR must be unset'; exit 1; }
+      - name: Install
+        id: install
+        run: npm ci
+      - name: Format
+        id: format
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run format:check
+      - name: Lint
+        id: lint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run lint
+      - name: Typecheck
+        id: typecheck
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run typecheck
+      - name: Environment gates
+        id: env-gates
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run check:env-gates
+      - name: Test collection
+        id: collection
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run test:list
+      - name: Safety checks
+        id: safety
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run test:safety
+      - name: Git hook checks
+        id: git-hooks
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run test:git-hooks
+      - name: Reporter and CI helper checks
+        id: ci-tests
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node --test safety-tests/slack-report.test.mjs safety-tests/ci-summary.test.mjs safety-tests/ci-workflow.test.mjs
+      - name: Vault check
+        id: vault-check
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run vault:check
+      - name: Vault links
+        id: vault-links
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run vault:validate
+      # Empty-input proof: the step itself supplies an explicitly empty value, so no repository secret is
+      # read, changed or deleted, and the reviewed gate (resolveDbAccess) refuses before any connection.
+      - name: Optional-input proof (empty input, no service call)
+        id: optional-input-proof
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        env:
+          QA_DB: '1'
+          STUDENT_DATABASE_URL: ''
+          PLAYWRIGHT_JSON_OUTPUT_FILE: ${{ runner.temp }}/proof/report.json
+        run: |
+          mkdir -p "$RUNNER_TEMP/proof"
+          npm test -- tests/db --reporter=json
+          node scripts/ci-summary.mjs proof --report "$RUNNER_TEMP/proof/report.json"
+      - name: Step results
+        id: results
+        if: ${{ !cancelled() }}
+        env:
+          STEPS_JSON: ${{ toJSON(steps) }}
+        run: |
+          printf '%s' "$STEPS_JSON" > "$RUNNER_TEMP/steps.json"
+          code=0
+          node scripts/ci-summary.mjs steps --steps "$RUNNER_TEMP/steps.json" --out "$RUNNER_TEMP/static-summary.md" || code=$?
+          cat "$RUNNER_TEMP/static-summary.md" >> "$GITHUB_STEP_SUMMARY"
+          exit "$code"
+
+  browser:
+    name: Dev tests
+    needs: static
+    # No always() or !cancelled() here: a failed, cancelled or skipped `static` must skip this job.
+    # Drafts and other repositories' PRs never reach the dev app. Regression is by hand, from main only.
+    if: >-
+      needs.static.result == 'success' &&
+      (github.event_name != 'pull_request' ||
+        (github.event.pull_request.draft == false &&
+         github.event.pull_request.head.repo.full_name == github.repository)) &&
+      (github.event_name != 'workflow_dispatch' ||
+        inputs.scope == 'smoke' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'regression') && 45 || 20 }}
+    permissions:
+      contents: read
+    # One run at a time against the shared dev app. Never cancelled mid-test: a killed job skips
+    # fixture teardown and could leave qa-auto- records behind.
+    concurrency:
+      group: qa-dev-target
+      cancel-in-progress: false
+    env:
+      SCOPE: ${{ github.event_name == 'workflow_dispatch' && inputs.scope || 'smoke' }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      PR_HEAD: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Install Chromium only
+        run: npx playwright install --with-deps chromium
+      - name: Prepare
+        run: |
+          test -z "${BASE_URL-}" || { echo 'BASE_URL must be unset'; exit 1; }
+          test -z "${LOCAL_SANDBOX_DIR-}" || { echo 'LOCAL_SANDBOX_DIR must be unset'; exit 1; }
+          mkdir -p "$RUNNER_TEMP/pw"
+          printf 'target: dev\n' > "$RUNNER_TEMP/pw/provenance.txt"
+          echo "QA_RUN_ID=$(date -u +%Y%m%dT%H%M%SZ)-$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')" >> "$GITHUB_ENV"
+      - name: Run the dev tests
+        id: pw
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_FILE: ${{ runner.temp }}/pw/report.json
+          PLAYWRIGHT_HTML_OUTPUT_DIR: ${{ runner.temp }}/pw/html
+          PLAYWRIGHT_HTML_OPEN: never
+          # The six teaching logins (tests/support/users.ts); the only secrets this workflow reads.
+          AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
+          AUTHOR_PASSWORD: ${{ secrets.AUTHOR_PASSWORD }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          OTHER_AUTHOR_EMAIL: ${{ secrets.OTHER_AUTHOR_EMAIL }}
+          OTHER_AUTHOR_PASSWORD: ${{ secrets.OTHER_AUTHOR_PASSWORD }}
+        run: |
+          if [ "$SCOPE" = regression ]; then tag='@regression'; else tag='@smoke'; fi
+          code=0
+          npm test -- --grep "$tag" --reporter=list,json,html || code=$?
+          echo "exit=$code" >> "$GITHUB_OUTPUT"
+          exit "$code"
+      # Nothing is uploaded before this: it removes trace archives and attachments from the HTML
+      # report and withholds it, or the JSON, when a login value or session shape is found.
+      - name: Scrub before upload
+        id: scrub
+        if: ${{ !cancelled() }}
+        # The scan reads the values through tests/support/users.ts; without them it withholds both reports.
+        env:
+          AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
+          AUTHOR_PASSWORD: ${{ secrets.AUTHOR_PASSWORD }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          OTHER_AUTHOR_EMAIL: ${{ secrets.OTHER_AUTHOR_EMAIL }}
+          OTHER_AUTHOR_PASSWORD: ${{ secrets.OTHER_AUTHOR_PASSWORD }}
+        run: node scripts/ci-summary.mjs scrub --html "$RUNNER_TEMP/pw/html" --json "$RUNNER_TEMP/pw/report.json" --withheld "$RUNNER_TEMP/pw/withheld.txt"
+      - name: Run summary
+        id: summary
+        if: ${{ !cancelled() }}
+        env:
+          PW_EXIT: ${{ steps.pw.outputs.exit }}
+        run: |
+          code=0
+          args=(--report "$RUNNER_TEMP/pw/report.json" --role "$SCOPE" --run-url "$RUN_URL" --sha "$GITHUB_SHA"
+            --run-id "$QA_RUN_ID" --playwright-exit "$PW_EXIT" --html-dir "$RUNNER_TEMP/pw/html"
+            --traces test-results --withheld "$RUNNER_TEMP/pw/withheld.txt" --out "$RUNNER_TEMP/pw/summary.md")
+          if [ -n "$PR_HEAD" ]; then args+=(--pr-head "$PR_HEAD"); fi
+          node scripts/ci-summary.mjs report "${args[@]}" || code=$?
+          cat "$RUNNER_TEMP/pw/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          exit "$code"
+      - name: Keep the native JSON report
+        if: ${{ !cancelled() && steps.scrub.outcome == 'success' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: native-json
+          path: |
+            ${{ runner.temp }}/pw/report.json
+            ${{ runner.temp }}/pw/provenance.txt
+            ${{ runner.temp }}/pw/summary.md
+          if-no-files-found: error
+          retention-days: 14
+      - name: Keep the HTML report when available
+        if: ${{ !cancelled() && steps.scrub.outcome == 'success' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: html-report
+          path: ${{ runner.temp }}/pw/html
+          if-no-files-found: warn
+          retention-days: 14
+
+  ci-result:
+    name: CI result
+    needs: [static, browser]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions: {}
+    env:
+      STATIC: ${{ needs.static.result }}
+      BROWSER: ${{ needs.browser.result }}
+    steps:
+      - name: Gate
+        run: |
+          echo "static checks: $STATIC; dev tests: $BROWSER"
+          [ "$STATIC" = success ] || { echo 'Static checks did not pass.'; exit 1; }
+          [ "$BROWSER" = success ] && exit 0
+          if [ "$BROWSER" = skipped ]; then
+            echo 'The dev tests did not run (draft or other-repository PR, or regression outside main): NOT VERIFIED, not a pass.'
+          fi
+          exit 1
+
+  pr-summary:
+    name: PR summary
+    needs: [static, browser]
+    if: ${{ always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    continue-on-error: true
+    permissions:
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      STATIC: ${{ needs.static.result }}
+      BROWSER: ${{ needs.browser.result }}
+    steps:
+      - name: Fetch the dev-test summary when there is one
+        continue-on-error: true
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: native-json
+          path: ${{ runner.temp }}/native
+      - name: Create or update the one summary comment
+        run: |
+          case "$PR" in ''|*[!0-9]*) echo 'no pull request number'; exit 1;; esac
+          marker='<!-- qa-framework-ci-summary -->'
+          body="$RUNNER_TEMP/comment.md"
+          {
+            printf '%s\n' "$marker"
+            printf '**CI for %s** — static checks: %s · dev tests: %s\n\n' "${HEAD_SHA:0:7}" "$STATIC" "$BROWSER"
+            printf '[Actual run and native evidence](%s)\n\n' "$RUN_URL"
+            summary="$RUNNER_TEMP/native/summary.md"
+            if [ -f "$summary" ] && [ "$(wc -c < "$summary")" -le 3000 ]; then cat "$summary"; printf '\n'; fi
+            printf 'Job status is not a coverage measure. Missing, malformed or all-skipped native results are errors, not passes.\n'
+          } > "$body"
+          cat "$body" >> "$GITHUB_STEP_SUMMARY"
+          ids="$(gh api --paginate "repos/$REPO/issues/$PR/comments?per_page=100" \
+            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"$marker\"))) | .id")"
+          id="${ids%%$'\n'*}"
+          if [ -n "$id" ]; then
+            case "$id" in *[!0-9]*) echo 'unexpected comment id'; exit 1;; esac
+            gh api -X PATCH "repos/$REPO/issues/comments/$id" -F body=@"$body" > /dev/null
+          else
+            gh api "repos/$REPO/issues/$PR/comments" -F body=@"$body" > /dev/null
+          fi

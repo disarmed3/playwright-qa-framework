@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "name": "qa-framework",
+  "playwright": {
+    "config": "playwright.config.ts"
+  },
+  "defaultEnvironment": "dev",
+  "environments": [
+    {
+      "id": "dev",
+      "name": "Development",
+      "description": "The course's dev site (blog and store); tests that change data run only with approval.",
+      "enabled": true,
+      "production": false,
+      "url": "https://dev.ai-orchestration-courses.com",
+      "env": {
+        "APP_ENV": "dev"
+      },
+      "requiredEnv": [],
+      "allowedTags": [],
+      "approvedFiles": []
+    },
+    {
+      "id": "prod",
+      "name": "Production",
+      "description": "Production is disabled until read-only files and tags are reviewed.",
+      "enabled": false,
+      "production": true,
+      "url": "https://ai-orchestration-courses.com",
+      "env": {
+        "APP_ENV": "prod"
+      },
+      "requiredEnv": [],
+      "allowedTags": [
+        "smoke"
+      ],
+      "approvedFiles": []
+    }
+  ],
+  "classifications": [
+    {
+      "pathPrefix": "tests/blog/",
+      "product": "Blog",
+      "layer": "ui"
+    },
+    {
+      "pathPrefix": "tests/blog/api/",
+      "product": "Blog",
+      "layer": "api"
+    },
+    {
+      "pathPrefix": "tests/store/api/",
+      "product": "Store",
+      "layer": "api"
+    },
+    {
+      "pathPrefix": "tests/store/ui/",
+      "product": "Store",
+      "layer": "ui"
+    },
+    {
+      "pathPrefix": "tests/db/",
+      "product": "Data",
+      "layer": "db"
+    }
+  ],
+  "suites": [
+    {
+      "id": "all",
+      "name": "Full test suite",
+      "description": "Every available check in this framework.",
+      "filter": {}
+    },
+    {
+      "id": "smoke",
+      "name": "Quick health check",
+      "description": "Checks explicitly tagged smoke.",
+      "filter": {
+        "tags": [
+          "smoke"
+        ]
+      }
+    },
+    {
+      "id": "regression",
+      "name": "Regression checks",
+      "description": "Checks explicitly tagged regression.",
+      "filter": {
+        "tags": [
+          "regression"
+        ]
+      }
+    },
+    {
+      "id": "e2e",
+      "name": "User journeys",
+      "description": "Checks explicitly tagged e2e.",
+      "filter": {
+        "tags": [
+          "e2e"
+        ]
+      }
+    }
+  ],
+  "labels": {},
+  "sources": {
+    "journals": [
+      "vault/12-progress-report/anastasios-athanasiadis"
+    ],
+    "cases": [
+      "vault/sources/test-catalog/blog-ui.md",
+      "vault/sources/test-catalog/blog-api.md",
+      "vault/sources/test-catalog/store-ui.md",
+      "vault/sources/test-catalog/store-api.md",
+      "vault/sources/test-catalog/db.md"
+    ]
+  },
+  "prerequisites": [
+    {
+      "pathPrefix": "tests/db/",
+      "requiredEnv": [
+        "QA_DB",
+        "STUDENT_DATABASE_URL"
+      ]
+    }
+  ],
+  "execution": {
+    "workers": 1,
+    "retries": 0,
+    "timeoutMs": 900000
+  }
+}

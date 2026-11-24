@@ -1,0 +1,6 @@
+node scripts/hooks/pre-push-check.mjs
+npm run typecheck
+npm run test:list
+npm run check:env-gates
+npm run vault:check
+npm run vault:validate

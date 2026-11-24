@@ -1,0 +1,7 @@
+# uv override for the postgres MCP connector in .mcp.json (passed with --overrides).
+# Every postgres-mcp release from 0.1.1rc1 to 0.3.0 pins pglast==7.2.0, which PyPI no longer serves
+# (checked 2026-10-26; the 7.x line has only 7.20 and 7.21), so the course command cannot resolve.
+# With this line it resolves to postgres-mcp 0.3.0, mcp 1.30.0, pglast 7.21 (evidence/week3-setup-note.md in tag week6-end).
+# Confirmed by the course mentor on 2026-10-26 (the course reference run uses the same override).
+# Remove this file and the --overrides argument once a postgres-mcp release without the pin is published.
+pglast==7.21

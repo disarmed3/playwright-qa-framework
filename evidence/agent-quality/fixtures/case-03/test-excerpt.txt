@@ -1,0 +1,9 @@
+Synthetic practice input: excerpt of the local check that produced run-summary.json.
+Line numbers are those of the check file.
+
+10  test('a cart with one line offers checkout', async ({ page }) => {
+11    await openCart(page); // loads the saved local cart page with one line
+12    const checkout = page.getByTestId('checkout-button');
+13    await expect(checkout).toBeVisible();
+14    await expect(checkout).toBeEnabled();
+15  });

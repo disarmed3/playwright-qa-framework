@@ -1,0 +1,39 @@
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+id_rsa
+id_ed25519
+.auth/
+**/.auth/
+storage-state.json
+storageState.json
+*storageState*.json
+node_modules/
+dist/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.playwright-mcp/
+# Dev contract snapshots hold the contract's example login values (Week 3 Task 08, rule 45).
+test-design/contract/
+.claude/settings.local.json
+# Subagent fleet log written by .claude/hooks/fleet-log.mjs (Week 3 Task 08B).
+.claude/fleet-log.txt
+# Raw run captures (Playwright JSON and similar); never committed.
+evidence/raw/
+# Manual quality runner jobs (Week 5, rule 60): machine results of scripts/agent-quality/quality-run.mjs.
+.qa-quality/
+# QA Dashboard local data: discovery, run history, reports, backups.
+.qa-dashboard/
+# Hook-written logs, kept locally only: the edit change log (scripts/vault-sync.mjs) and the daily
+# journals (/worklog). The course-time copies are in the tags week1-end to week6-end.
+vault/_changelog/
+vault/12-progress-report/
+.mcp.local.json
+*.log
+.DS_Store
+Thumbs.db

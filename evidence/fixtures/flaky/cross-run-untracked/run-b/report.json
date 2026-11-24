@@ -1,0 +1,188 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "<repo>\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "evidence/fixtures/flaky/source/playwright.config.ts",
+      "--reporter=json"
+    ],
+    "configFile": "<repo>\\evidence\\fixtures\\flaky\\source\\playwright.config.ts",
+    "rootDir": "<repo>/evidence/fixtures/flaky/source",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<repo>/test-results/flaky-fixtures",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "alpha",
+        "name": "alpha",
+        "testDir": "<repo>/evidence/fixtures/flaky/source",
+        "testIgnore": [],
+        "testMatch": [
+          "cross.fixture.ts"
+        ],
+        "timeout": 5000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "cross.fixture.ts",
+      "file": "cross.fixture.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "synthetic cross-run",
+          "file": "cross.fixture.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "passes in variant a and fails in variant b",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "alpha",
+                  "projectName": "alpha",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 10,
+                      "error": {
+                        "message": "Error: synthetic: fails in variant b by design\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"a\"\u001b[39m\nReceived: \u001b[31m\"b\"\u001b[39m",
+                        "stack": "Error: synthetic: fails in variant b by design\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"a\"\u001b[39m\nReceived: \u001b[31m\"b\"\u001b[39m\n    at <repo>\\evidence\\fixtures\\flaky\\source\\cross.fixture.ts:9:64",
+                        "location": {
+                          "file": "<repo>\\evidence\\fixtures\\flaky\\source\\cross.fixture.ts",
+                          "column": 64,
+                          "line": 9
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  7 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'synthetic cross-run'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m  8 |\u001b[39m   test(\u001b[32m'passes in variant a and fails in variant b'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  9 |\u001b[39m     expect(variant\u001b[33m,\u001b[39m \u001b[32m'synthetic: fails in variant b by design'\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[32m'a'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 10 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 11 |\u001b[39m\n \u001b[90m 12 |\u001b[39m   test(\u001b[32m'passes in both variants'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "<repo>\\evidence\\fixtures\\flaky\\source\\cross.fixture.ts",
+                            "column": 64,
+                            "line": 9
+                          },
+                          "message": "Error: synthetic: fails in variant b by design\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"a\"\u001b[39m\nReceived: \u001b[31m\"b\"\u001b[39m\n\n   7 | test.describe('synthetic cross-run', () => {\n   8 |   test('passes in variant a and fails in variant b', () => {\n>  9 |     expect(variant, 'synthetic: fails in variant b by design').toBe('a');\n     |                                                                ^\n  10 |   });\n  11 |\n  12 |   test('passes in both variants', () => {\n    at <repo>\\evidence\\fixtures\\flaky\\source\\cross.fixture.ts:9:64"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-09T20:30:37.169Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "<repo>\\test-results\\flaky-fixtures\\cross.fixture.ts-synthetic-8e8ea-nt-a-and-fails-in-variant-b-alpha\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "<repo>\\evidence\\fixtures\\flaky\\source\\cross.fixture.ts",
+                        "column": 64,
+                        "line": 9
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "701df539f7748a9accc6-90285ab9062cd4638bf5",
+              "file": "cross.fixture.ts",
+              "line": 8,
+              "column": 7
+            },
+            {
+              "title": "passes in both variants",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "alpha",
+                  "projectName": "alpha",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-09T20:30:37.746Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "701df539f7748a9accc6-4f3f8209117aaeccb61e",
+              "file": "cross.fixture.ts",
+              "line": 12,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-09T20:30:36.606Z",
+    "duration": 1211.6309999999999,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

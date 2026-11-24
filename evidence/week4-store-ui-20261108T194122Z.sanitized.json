@@ -1,0 +1,571 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "<repo>\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/store/ui",
+      "--reporter=list,json",
+      "--workers=1",
+      "--retries=0",
+      "--trace=on",
+      "--output=evidence/raw/week4/store-ui/20261108T194122Z/test-results"
+    ],
+    "configFile": "<repo>\\playwright.config.ts",
+    "rootDir": "<repo>/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<repo>/evidence/raw/week4/store-ui/20261108T194122Z/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "<repo>/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "store\\ui\\cart.spec.ts",
+      "file": "store/ui/cart.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "store UI cart (dev only)",
+          "file": "store/ui/cart.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-SUI-012 adding a variant to the cart lists the product with its variant label on the cart page and raises the nav cart count to 1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5929 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3832,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 unit of variant 1 through the product page",
+                          "duration": 542
+                        }
+                      ],
+                      "startTime": "2026-11-08T19:41:27.600Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5929 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "<repo>\\evidence\\raw\\week4\\store-ui\\20261108T194122Z\\test-results\\store-ui-cart-store-UI-car-9d2ac-ses-the-nav-cart-count-to-1-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "77a3870d4a2597496cab-bee02582de5ed1395fa2",
+              "file": "store/ui/cart.spec.ts",
+              "line": 18,
+              "column": 7
+            },
+            {
+              "title": "TC-SUI-020 the cart shows the line's name, variant, quantity 2, line total, subtotal and total for the tee",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5930 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 6936,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('cart-row').filter({ hasText: 'Codemify Classic Tee' }).getByRole('img', { name: 'Codemify Classic Tee' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('cart-row').filter({ hasText: 'Codemify Classic Tee' }).getByRole('img', { name: 'Codemify Classic Tee' })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('cart-row').filter({ hasText: 'Codemify Classic Tee' }).getByRole('img', { name: 'Codemify Classic Tee' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('cart-row').filter({ hasText: 'Codemify Classic Tee' }).getByRole('img', { name: 'Codemify Classic Tee' })\u001b[22m\n\n    at <repo>\\tests\\store\\ui\\cart.spec.ts:61:39",
+                        "location": {
+                          "file": "<repo>\\tests\\store\\ui\\cart.spec.ts",
+                          "column": 39,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 59 |\u001b[39m     \u001b[90m// SCRUM-51: image, name, variant, quantity and line total on the line; subtotal correct.\u001b[39m\n \u001b[90m 60 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cart\u001b[33m.\u001b[39mrow(name))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 61 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cart\u001b[33m.\u001b[39mrowImage(name))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 62 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cart\u001b[33m.\u001b[39mrowVariantLabel(name\u001b[33m,\u001b[39m label))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 63 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cart\u001b[33m.\u001b[39mrowQty(name))\u001b[33m.\u001b[39mtoHaveValue(\u001b[32m'2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cart\u001b[33m.\u001b[39mrowLineTotal(name))\u001b[33m.\u001b[39mtoHaveText(usd(\u001b[35m2\u001b[39m \u001b[33m*\u001b[39m tee\u001b[33m.\u001b[39mprice))\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "<repo>\\tests\\store\\ui\\cart.spec.ts",
+                            "column": 39,
+                            "line": 61
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('cart-row').filter({ hasText: 'Codemify Classic Tee' }).getByRole('img', { name: 'Codemify Classic Tee' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('cart-row').filter({ hasText: 'Codemify Classic Tee' }).getByRole('img', { name: 'Codemify Classic Tee' })\u001b[22m\n\n\n  59 |     // SCRUM-51: image, name, variant, quantity and line total on the line; subtotal correct.\n  60 |     await expect(cart.row(name)).toBeVisible();\n> 61 |     await expect(cart.rowImage(name)).toBeVisible();\n     |                                       ^\n  62 |     await expect(cart.rowVariantLabel(name, label)).toBeVisible();\n  63 |     await expect(cart.rowQty(name)).toHaveValue('2');\n  64 |     await expect(cart.rowLineTotal(name)).toHaveText(usd(2 * tee.price));\n    at <repo>\\tests\\store\\ui\\cart.spec.ts:61:39"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 2 units of variant 1 to the own cart",
+                          "duration": 294
+                        }
+                      ],
+                      "startTime": "2026-11-08T19:41:32.349Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5930 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "<repo>\\evidence\\raw\\week4\\store-ui\\20261108T194122Z\\test-results\\store-ui-cart-store-UI-car-7757b-total-and-total-for-the-tee-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "<repo>\\evidence\\raw\\week4\\store-ui\\20261108T194122Z\\test-results\\store-ui-cart-store-UI-car-7757b-total-and-total-for-the-tee-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "<repo>\\tests\\store\\ui\\cart.spec.ts",
+                        "column": 39,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "77a3870d4a2597496cab-cea3ade0339db41cb7ca",
+              "file": "store/ui/cart.spec.ts",
+              "line": 43,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "store\\ui\\checkout.spec.ts",
+      "file": "store/ui/checkout.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "store UI checkout (dev only)",
+          "file": "store/ui/checkout.spec.ts",
+          "line": 26,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-SUI-030 the checkout page renders the shipping and payment forms and shows the test-card panel",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5931 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2740,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 tee (variant 1) to the own cart",
+                          "duration": 293
+                        }
+                      ],
+                      "startTime": "2026-11-08T19:41:40.026Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5931 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "<repo>\\evidence\\raw\\week4\\store-ui\\20261108T194122Z\\test-results\\store-ui-checkout-store-UI-8e0c8-d-shows-the-test-card-panel-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f7484ab436395e8a4d6a-27d066a2a1f97a0233b7",
+              "file": "store/ui/checkout.spec.ts",
+              "line": 29,
+              "column": 7
+            },
+            {
+              "title": "TC-SUI-031 a SAVE10 cart carried through checkout with the approved mock card shows a paid confirmation with the order number and discounted total",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                      "location": {
+                        "file": "<repo>\\tests\\support\\store.ts",
+                        "line": 130,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 71,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-08T19:41:42.993Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                          "location": {
+                            "file": "<repo>\\tests\\support\\store.ts",
+                            "line": 130,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "<repo>\\evidence\\raw\\week4\\store-ui\\20261108T194122Z\\test-results\\store-ui-checkout-store-UI-63e56-number-and-discounted-total-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f7484ab436395e8a4d6a-b4f446177f069146ab02",
+              "file": "store/ui/checkout.spec.ts",
+              "line": 57,
+              "column": 7
+            },
+            {
+              "title": "TC-SUI-032 the declined mock card shows the payment error and no order confirmation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                      "location": {
+                        "file": "<repo>\\tests\\support\\store.ts",
+                        "line": 130,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 87,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-08T19:41:43.086Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                          "location": {
+                            "file": "<repo>\\tests\\support\\store.ts",
+                            "line": 130,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "<repo>\\evidence\\raw\\week4\\store-ui\\20261108T194122Z\\test-results\\store-ui-checkout-store-UI-d8774-r-and-no-order-confirmation-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f7484ab436395e8a4d6a-d8f7b019aedaba2de804",
+              "file": "store/ui/checkout.spec.ts",
+              "line": 97,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "store\\ui\\coupons.spec.ts",
+      "file": "store/ui/coupons.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "store UI coupons (dev only)",
+          "file": "store/ui/coupons.spec.ts",
+          "line": 21,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-SUI-022 an invalid code shows coupon-error, then SAVE10 shows the discount row and the reduced total",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5932 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3141,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 2 tees (variant 1) to the own cart",
+                          "duration": 301
+                        },
+                        {
+                          "title": "apply unknown code \"qa-auto-20261108T194127Z-86578c-a58d145a623c39601689-1f0c71f82855fc868160\" through the cart page",
+                          "duration": 496
+                        },
+                        {
+                          "title": "apply SAVE10 through the cart page",
+                          "duration": 489
+                        }
+                      ],
+                      "startTime": "2026-11-08T19:41:43.201Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5932 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "<repo>\\evidence\\raw\\week4\\store-ui\\20261108T194122Z\\test-results\\store-ui-coupons-store-UI--a1a90-t-row-and-the-reduced-total-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a58d145a623c39601689-1f0c71f82855fc868160",
+              "file": "store/ui/coupons.spec.ts",
+              "line": 24,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-032 EXPIRED10 applied through the cart page shows \"This coupon has expired.\" with no discount and an unchanged total",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5933 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2662,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 unit of variant 1 to the own cart",
+                          "duration": 292
+                        },
+                        {
+                          "title": "apply EXPIRED10 through the cart page",
+                          "duration": 506
+                        }
+                      ],
+                      "startTime": "2026-11-08T19:41:46.403Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5933 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "<repo>\\evidence\\raw\\week4\\store-ui\\20261108T194122Z\\test-results\\store-ui-coupons-store-UI--434c7-ount-and-an-unchanged-total-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a58d145a623c39601689-99b03a7fdb33cd3ef2e0",
+              "file": "store/ui/coupons.spec.ts",
+              "line": 64,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-08T19:41:27.023Z",
+    "duration": 22155.632999999998,
+    "expected": 4,
+    "skipped": 2,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

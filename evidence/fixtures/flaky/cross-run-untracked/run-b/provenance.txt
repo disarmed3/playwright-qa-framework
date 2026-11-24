@@ -1,0 +1,14 @@
+run_id: synthetic-20261109T203036Z
+synthetic: true
+start_utc: 2026-11-09T20:30:36.606Z
+command: node scripts/flaky-fixtures.ts (FLAKY_FIXTURE_CASE=cross-run FLAKY_FIXTURE_VARIANT=b)
+target_env: none (synthetic; no app, no network)
+target_url: none
+head: synthetic-head-1
+branch: synthetic
+node: v24.20.0
+playwright: Version 1.61.1
+--- git status --short
+?? evidence/fixtures/flaky/source/
+--- git diff --stat
+exit_code: synthetic

@@ -1,0 +1,26 @@
+{
+  "synthetic": true,
+  "note": "Synthetic practice input; not from a real run.",
+  "runId": "run-c5",
+  "startedAt": "2026-11-08T10:30:00Z",
+  "project": "chromium",
+  "workers": 1,
+  "retries": 0,
+  "test": {
+    "title": "a valid code reduces the total",
+    "status": "failed",
+    "durationMs": 1240,
+    "steps": [
+      { "line": 21, "title": "open the local cart page", "status": "passed", "atMs": 0 },
+      { "line": 22, "title": "fill coupon-input", "status": "passed", "atMs": 1150 },
+      { "line": 23, "title": "click coupon-apply", "status": "passed", "atMs": 1210 },
+      { "line": 24, "title": "read cart-total text", "status": "passed", "atMs": 1228 },
+      { "line": 25, "title": "expect total toBe \"€18.00\"", "status": "failed", "atMs": 1229 }
+    ],
+    "error": {
+      "line": 25,
+      "message": "expect(received).toBe(expected)\nExpected: \"€18.00\"\nReceived: \"€20.00\""
+    }
+  },
+  "attachments": ["observation-1.txt", "page-a.html"]
+}

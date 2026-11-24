@@ -1,0 +1,4 @@
+node scripts/hooks/secret-scan.mjs
+node scripts/hooks/pre-commit-notes.mjs --preflight
+npx --no-install lint-staged --concurrent false
+node scripts/hooks/pre-commit-notes.mjs --refresh

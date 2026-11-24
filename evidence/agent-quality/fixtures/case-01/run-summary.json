@@ -1,0 +1,24 @@
+{
+  "synthetic": true,
+  "note": "Synthetic practice input; not from a real run.",
+  "runId": "run-k2",
+  "startedAt": "2026-11-08T09:10:00Z",
+  "project": "chromium",
+  "workers": 1,
+  "retries": 0,
+  "test": {
+    "title": "a cart line shows quantity and line total",
+    "status": "failed",
+    "durationMs": 5420,
+    "steps": [
+      { "line": 41, "title": "open the saved cart page", "status": "passed", "atMs": 0 },
+      { "line": 43, "title": "line-qty has text \"2\"", "status": "passed", "atMs": 310 },
+      { "line": 44, "title": "line-total has text \"€15.00\"", "status": "failed", "atMs": 330 }
+    ],
+    "error": {
+      "line": 44,
+      "message": "expect(locator).toHaveText(expected) failed\nLocator: getByTestId('cart-line').first().getByTestId('line-total')\nExpected: \"€15.00\"\nReceived: \"€7.50\"\nTimeout: 5000ms\nCall log: 34 polls over 5000ms, every poll received \"€7.50\""
+    }
+  },
+  "attachments": ["observation-1.txt", "page-a.html"]
+}

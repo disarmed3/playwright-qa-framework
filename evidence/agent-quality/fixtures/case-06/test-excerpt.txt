@@ -1,0 +1,10 @@
+Synthetic practice input: excerpt of the local check that produced run-summary.json.
+Line numbers are those of the check file.
+
+20  test('a valid code reduces the total', async ({ page }) => {
+21    await openCart(page); // loads the local cart page: one line, total €20.00
+22    await page.getByTestId('coupon-input').fill('PRACTICE10');
+23    await page.getByTestId('coupon-apply').click();
+24    const total = await page.getByTestId('cart-total').textContent();
+25    expect(total).toBe('€18.00');
+26  });

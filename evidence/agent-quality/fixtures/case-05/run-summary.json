@@ -1,0 +1,36 @@
+{
+  "synthetic": true,
+  "note": "Synthetic practice input; not from a real run. No session values are included.",
+  "runId": "run-s3",
+  "startedAt": "2026-11-08T10:15:00Z",
+  "project": "chromium",
+  "workers": 1,
+  "retries": 0,
+  "setup": {
+    "title": "prepare the practice session",
+    "status": "passed",
+    "steps": [
+      {
+        "title": "practice-session.json already exists; sign-in skipped",
+        "status": "passed",
+        "fileSavedAt": "2026-11-07T08:00:00Z"
+      }
+    ],
+    "practiceSessionLifetimeHours": 24
+  },
+  "test": {
+    "title": "a signed-in shopper sees the order history",
+    "status": "failed",
+    "durationMs": 5610,
+    "steps": [
+      { "line": 31, "title": "goto /account/orders", "status": "passed", "atMs": 0 },
+      { "line": 32, "title": "orders-heading has text \"Your orders\"", "status": "failed", "atMs": 420 }
+    ],
+    "error": {
+      "line": 32,
+      "message": "expect(locator).toHaveText(expected) failed\nLocator: getByTestId('orders-heading')\nExpected: \"Your orders\"\nTimeout: 5000ms\nError: element(s) not found"
+    },
+    "finalUrl": "/signin?next=%2Faccount%2Forders"
+  },
+  "attachments": ["observation-1.txt", "page-a.html"]
+}

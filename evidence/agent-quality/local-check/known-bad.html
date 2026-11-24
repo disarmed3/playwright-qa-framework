@@ -1,0 +1,24 @@
+<!doctype html>
+<!-- Synthetic practice page for the local check only; never part of a worker bundle.
+     Same markup as fixtures/case-03/page-b.html, but the cart holds a line and the checkout
+     button is disabled, which breaks that case's requirement. A repair must still fail here. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="practice-input" content="synthetic" />
+    <title>Your cart</title>
+  </head>
+  <body>
+    <h1>Your cart</h1>
+    <ul aria-label="Cart lines">
+      <li data-testid="cart-line">
+        <span data-testid="line-name">Trail Mug · Blue</span>
+        <span>Quantity <span data-testid="line-qty">1</span></span>
+        <span>Line total <span data-testid="line-total">€12.00</span></span>
+        <button type="button" data-testid="line-remove">Remove</button>
+      </li>
+    </ul>
+    <p>Subtotal <span data-testid="cart-subtotal">€12.00</span></p>
+    <button type="button" data-testid="cart-checkout" disabled>Proceed to checkout</button>
+  </body>
+</html>

@@ -1,0 +1,1048 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "<repo>\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/store/api",
+      "--reporter=list,json",
+      "--workers=1",
+      "--retries=0",
+      "--output=evidence/raw/week4/store-api/20261112T204343Z/test-results"
+    ],
+    "configFile": "<repo>\\playwright.config.ts",
+    "rootDir": "<repo>/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<repo>/evidence/raw/week4/store-api/20261112T204343Z/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "<repo>/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "store\\api\\cart.spec.ts",
+      "file": "store/api/cart.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "store API cart (dev only)",
+          "file": "store/api/cart.spec.ts",
+          "line": 13,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-SAPI-021 adding a variant creates one line at the product price, and line total, subtotal and total equal quantity times price",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5963 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1340,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 2 units of variant 1 to the own cart",
+                          "duration": 288
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:47.813Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5963 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0e4d590bcd14779e2ab7-39cbb77bf64a48875d1a",
+              "file": "store/api/cart.spec.ts",
+              "line": 16,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-022 adding the same variant twice raises the quantity of one line instead of adding a second",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5964 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1136,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 unit of variant 1",
+                          "duration": 281
+                        },
+                        {
+                          "title": "add 1 more unit of variant 1",
+                          "duration": 291
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:49.188Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5964 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0e4d590bcd14779e2ab7-06dcdfcf9d5196e8c764",
+              "file": "store/api/cart.spec.ts",
+              "line": 42,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-023 adding more than the stock returns 422 cart_error and leaves the owned cart unchanged",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5965 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1412,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 unit of variant 1",
+                          "duration": 288
+                        },
+                        {
+                          "title": "try to add 999598 units of variant 1",
+                          "duration": 282
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:50.333Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5965 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0e4d590bcd14779e2ab7-1d168213bbf8abc1691a",
+              "file": "store/api/cart.spec.ts",
+              "line": 69,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-025 changing a line quantity recalculates line total, subtotal and total, and quantity 0 removes the line",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5966 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1766,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 unit of variant 1",
+                          "duration": 278
+                        },
+                        {
+                          "title": "set own line 5186 to quantity 2",
+                          "duration": 276
+                        },
+                        {
+                          "title": "set own line 5186 to quantity 0",
+                          "duration": 278
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:51.753Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5966 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0e4d590bcd14779e2ab7-23ee4e2c3e6284a18dda",
+              "file": "store/api/cart.spec.ts",
+              "line": 95,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-027 deleting one of two lines removes it and recomputes subtotal and total from the remaining line",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5967 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1708,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 unit each of variants 1 and 5",
+                          "duration": 558
+                        },
+                        {
+                          "title": "delete own line 5187",
+                          "duration": 139
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:53.528Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5967 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0e4d590bcd14779e2ab7-86f26f50d0f4cbf96bb1",
+              "file": "store/api/cart.spec.ts",
+              "line": 128,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "store\\api\\checkout.spec.ts",
+      "file": "store/api/checkout.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "store API checkout and mock payment (dev only)",
+          "file": "store/api/checkout.spec.ts",
+          "line": 29,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-SAPI-042 checkout from a context with no cart is refused with 422 empty_cart and \"Your cart is empty.\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 145,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "submit checkout from a fresh context with no cart",
+                          "duration": 135
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:55.252Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "35a0abc8fe564cccdd37-3faf0bbcda0dad962cc1",
+              "file": "store/api/checkout.spec.ts",
+              "line": 32,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-041 checkout validation refuses missing fields with schema 400 and blank or invalid values with 422 validation_error messages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 293,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "submit checkout with no fields from a fresh context with no cart",
+                          "duration": 135
+                        },
+                        {
+                          "title": "submit checkout with an invalid email and blank shipping values",
+                          "duration": 133
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:55.408Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "35a0abc8fe564cccdd37-65eba6acf30b2aa36f27",
+              "file": "store/api/checkout.spec.ts",
+              "line": 47,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-050 paying a fresh pending order with the approved mock card returns 200, pays the order and records an approved payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                      "location": {
+                        "file": "<repo>\\tests\\support\\store.ts",
+                        "line": 188,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 1,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-12T20:43:55.715Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                          "location": {
+                            "file": "<repo>\\tests\\support\\store.ts",
+                            "line": 188,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "35a0abc8fe564cccdd37-155061754750226ebadf",
+              "file": "store/api/checkout.spec.ts",
+              "line": 84,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-051 paying with the declined mock card returns 402 payment_declined, fails the order and records a declined payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                      "location": {
+                        "file": "<repo>\\tests\\support\\store.ts",
+                        "line": 188,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 1,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-12T20:43:55.730Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                          "location": {
+                            "file": "<repo>\\tests\\support\\store.ts",
+                            "line": 188,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "35a0abc8fe564cccdd37-340e125cfdcd9f2cc68d",
+              "file": "store/api/checkout.spec.ts",
+              "line": 141,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-052 paying with the gateway-error mock card returns 502 gateway_error, leaves the order pending and records an error payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                      "location": {
+                        "file": "<repo>\\tests\\support\\store.ts",
+                        "line": 188,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 1,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-12T20:43:55.751Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                          "location": {
+                            "file": "<repo>\\tests\\support\\store.ts",
+                            "line": 188,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "35a0abc8fe564cccdd37-3d1e2ac3aaa5650ab166",
+              "file": "store/api/checkout.spec.ts",
+              "line": 180,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-053 paying with an undocumented Luhn-valid card returns 422 card_invalid, leaves the order pending and saves no payment",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                      "location": {
+                        "file": "<repo>\\tests\\support\\store.ts",
+                        "line": 188,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-12T20:43:55.762Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "blocked: mentor M5 (Q43): no open checkout allocation (missing, expired, or its one-run budget is used)",
+                          "location": {
+                            "file": "<repo>\\tests\\support\\store.ts",
+                            "line": 188,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "35a0abc8fe564cccdd37-c852751dfd7018aeb8d1",
+              "file": "store/api/checkout.spec.ts",
+              "line": 220,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "store\\api\\coupons.spec.ts",
+      "file": "store/api/coupons.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "store API coupons (dev only)",
+          "file": "store/api/coupons.spec.ts",
+          "line": 12,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-SAPI-030 SAVE10 on a 5000-cent subtotal gives a 500 discount and a 4500 total",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5968 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1268,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 2 tees (variant 1) to the own cart",
+                          "duration": 277
+                        },
+                        {
+                          "title": "apply SAVE10 to the own cart",
+                          "duration": 149
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:55.787Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5968 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "32a369dd8383755c7334-358ef4f5ce1e00e65d01",
+              "file": "store/api/coupons.spec.ts",
+              "line": 15,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-032 EXPIRED10 is refused with 422 coupon_error \"This coupon has expired.\" and no discount",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5969 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1264,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 unit of variant 1",
+                          "duration": 279
+                        },
+                        {
+                          "title": "try to apply EXPIRED10 to the own cart",
+                          "duration": 138
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:57.062Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5969 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "32a369dd8383755c7334-9517e772dbb3377e05a7",
+              "file": "store/api/coupons.spec.ts",
+              "line": 40,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-033 an unknown coupon code is refused with 422 coupon_error \"Invalid coupon code.\" and no discount",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5970 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1254,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 1 unit of variant 1",
+                          "duration": 278
+                        },
+                        {
+                          "title": "try to apply unknown code \"qa-auto-20261112T204347Z-764070-32a369dd8383755c7334-83dc54cf75b43d3faa7a\"",
+                          "duration": 140
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:58.335Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5970 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "32a369dd8383755c7334-83dc54cf75b43d3faa7a",
+              "file": "store/api/coupons.spec.ts",
+              "line": 68,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-074 applying SAVE10 a second time returns 200 and leaves the coupon, discount and total unchanged",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "retained",
+                      "description": "own guest cart row 5971 (no cart delete API; mentor 2026-11-07 item 2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1423,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "add 2 tees (variant 1) to the own cart",
+                          "duration": 279
+                        },
+                        {
+                          "title": "apply SAVE10 to the own cart",
+                          "duration": 139
+                        },
+                        {
+                          "title": "apply SAVE10 to the same, unchanged cart again",
+                          "duration": 139
+                        }
+                      ],
+                      "startTime": "2026-11-12T20:43:59.609Z",
+                      "annotations": [
+                        {
+                          "type": "retained",
+                          "description": "own guest cart row 5971 (no cart delete API; mentor 2026-11-07 item 2)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "32a369dd8383755c7334-cbe36fdba245113ef346",
+              "file": "store/api/coupons.spec.ts",
+              "line": 98,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "store\\api\\products.spec.ts",
+      "file": "store/api/products.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "store API products (dev only)",
+          "file": "store/api/products.spec.ts",
+          "line": 12,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-SAPI-001 the product list returns the paged envelope on page 1 with page size 12 and only active products",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "drift",
+                      "description": "products total: seeded 8, today 8 (2026-11-12)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 150,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-12T20:44:01.051Z",
+                      "annotations": [
+                        {
+                          "type": "drift",
+                          "description": "products total: seeded 8, today 8 (2026-11-12)"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "bc8118bc6b8184d850b7-b0412d2465e4c31678de",
+              "file": "store/api/products.spec.ts",
+              "line": 15,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-009 product detail returns the classic tee at its seed price with S, M, L and XL variants that each carry stock",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 144,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-12T20:44:01.216Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "bc8118bc6b8184d850b7-bef352f72b7d66f5de2b",
+              "file": "store/api/products.spec.ts",
+              "line": 47,
+              "column": 7
+            },
+            {
+              "title": "TC-SAPI-010 an unknown product slug returns 404 not_found",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 141,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-12T20:44:01.367Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "bc8118bc6b8184d850b7-2b44f211bdba955acd47",
+              "file": "store/api/products.spec.ts",
+              "line": 64,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-12T20:43:47.263Z",
+    "duration": 14304.723,
+    "expected": 14,
+    "skipped": 4,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

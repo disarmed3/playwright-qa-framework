@@ -1,0 +1,26 @@
+{
+  "synthetic": true,
+  "note": "Synthetic practice input; not from a real run.",
+  "runId": "run-p9",
+  "startedAt": "2026-11-08T09:40:00Z",
+  "project": "chromium",
+  "workers": 1,
+  "retries": 0,
+  "test": {
+    "title": "the approved practice card shows the confirmation",
+    "status": "failed",
+    "durationMs": 6180,
+    "steps": [
+      { "line": 51, "title": "open the local checkout page", "status": "passed", "atMs": 0 },
+      { "line": 52, "title": "fill the approved practice card", "status": "passed", "atMs": 640 },
+      { "line": 53, "title": "click pay-button", "status": "passed", "atMs": 1150 },
+      { "line": 54, "title": "order-confirmation is visible", "status": "failed", "atMs": 1180 }
+    ],
+    "error": {
+      "line": 54,
+      "message": "expect(locator).toBeVisible() failed\nLocator: getByTestId('order-confirmation')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found"
+    }
+  },
+  "capture": { "screenshot": "off", "trace": "off", "pageSnapshot": "not saved" },
+  "attachments": []
+}

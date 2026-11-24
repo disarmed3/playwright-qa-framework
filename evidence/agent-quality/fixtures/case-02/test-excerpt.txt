@@ -1,0 +1,10 @@
+Synthetic practice input: excerpt of the local check that produced run-summary.json.
+Line numbers are those of the check file.
+
+50  test('the approved practice card shows the confirmation', async ({ page }) => {
+51    await openCheckout(page); // loads the local checkout page with one cart line
+52    await fillPracticeCard(page, 'approved');
+53    await page.getByTestId('pay-button').click();
+54    await expect(page.getByTestId('order-confirmation')).toBeVisible();
+55    await expect(page.getByTestId('order-number')).toHaveText(/^PO-\d{6}$/);
+56  });

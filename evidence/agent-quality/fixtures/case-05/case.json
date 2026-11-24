@@ -1,0 +1,9 @@
+{
+  "caseId": "case-05",
+  "inputKind": "synthetic",
+  "sourceVersion": "v1",
+  "sourceDate": "2026-11-08",
+  "requirementPath": "requirement.md",
+  "evidencePaths": ["test-excerpt.txt", "run-summary.json", "observation-1.txt", "page-a.html"],
+  "missingObservations": []
+}

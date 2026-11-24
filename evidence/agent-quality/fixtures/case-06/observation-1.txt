@@ -1,0 +1,10 @@
+Synthetic practice input: event log of the local page, times relative to the click on line 23.
+The page was kept open after the failure so that it could be saved.
+
+t+0 ms     click coupon-apply; request POST /practice/coupon sent
+t+18 ms    cart-total text read: "€20.00" (line 24)
+t+19 ms    assertion on line 25 failed
+t+640 ms   response POST /practice/coupon 200 {"accepted":true,"percent":10}
+t+655 ms   row added: "Discount (PRACTICE10) −€2.00"
+t+656 ms   cart-total text changed to "€18.00"
+t+900 ms   page saved as page-a.html

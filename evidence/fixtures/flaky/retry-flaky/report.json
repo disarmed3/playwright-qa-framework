@@ -1,0 +1,201 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "<repo>\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "evidence/fixtures/flaky/source/playwright.config.ts",
+      "--reporter=json"
+    ],
+    "configFile": "<repo>\\evidence\\fixtures\\flaky\\source\\playwright.config.ts",
+    "rootDir": "<repo>/evidence/fixtures/flaky/source",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<repo>/test-results/flaky-fixtures",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "alpha",
+        "name": "alpha",
+        "testDir": "<repo>/evidence/fixtures/flaky/source",
+        "testIgnore": [],
+        "testMatch": [
+          "retry.fixture.ts"
+        ],
+        "timeout": 5000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "retry.fixture.ts",
+      "file": "retry.fixture.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "synthetic retry",
+          "file": "retry.fixture.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "fails on the first attempt only",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "alpha",
+                  "projectName": "alpha",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 8,
+                      "error": {
+                        "message": "Error: synthetic: fails on attempt 0 by design\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
+                        "stack": "Error: synthetic: fails on attempt 0 by design\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at <repo>\\evidence\\fixtures\\flaky\\source\\retry.fixture.ts:7:74",
+                        "location": {
+                          "file": "<repo>\\evidence\\fixtures\\flaky\\source\\retry.fixture.ts",
+                          "column": 74,
+                          "line": 7
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'synthetic retry'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m  6 |\u001b[39m   test(\u001b[32m'fails on the first attempt only'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m     expect(test\u001b[33m.\u001b[39minfo()\u001b[33m.\u001b[39mretry\u001b[33m,\u001b[39m \u001b[32m'synthetic: fails on attempt 0 by design'\u001b[39m)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m\n \u001b[90m 10 |\u001b[39m   test(\u001b[32m'passes on the first attempt'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "<repo>\\evidence\\fixtures\\flaky\\source\\retry.fixture.ts",
+                            "column": 74,
+                            "line": 7
+                          },
+                          "message": "Error: synthetic: fails on attempt 0 by design\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\n   5 | test.describe('synthetic retry', () => {\n   6 |   test('fails on the first attempt only', () => {\n>  7 |     expect(test.info().retry, 'synthetic: fails on attempt 0 by design').toBeGreaterThan(0);\n     |                                                                          ^\n   8 |   });\n   9 |\n  10 |   test('passes on the first attempt', () => {\n    at <repo>\\evidence\\fixtures\\flaky\\source\\retry.fixture.ts:7:74"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-09T20:30:33.961Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "<repo>\\test-results\\flaky-fixtures\\retry.fixture.ts-synthetic-b545d-s-on-the-first-attempt-only-alpha\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "<repo>\\evidence\\fixtures\\flaky\\source\\retry.fixture.ts",
+                        "column": 74,
+                        "line": 7
+                      }
+                    },
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-11-09T20:30:34.536Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "cb6755a9cd146a3526b7-893a6e9ab6d93caf203d",
+              "file": "retry.fixture.ts",
+              "line": 6,
+              "column": 7
+            },
+            {
+              "title": "passes on the first attempt",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "alpha",
+                  "projectName": "alpha",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-09T20:30:34.578Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cb6755a9cd146a3526b7-c513130f74b39d7d3658",
+              "file": "retry.fixture.ts",
+              "line": 10,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-09T20:30:33.443Z",
+    "duration": 1167.442,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 1
+  }
+}

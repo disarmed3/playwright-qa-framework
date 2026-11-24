@@ -1,0 +1,31 @@
+{
+  "synthetic": true,
+  "note": "Synthetic practice input; not from a real run.",
+  "runId": "run-a7",
+  "startedAt": "2026-11-08T08:30:00Z",
+  "project": "chromium",
+  "workers": 1,
+  "retries": 0,
+  "test": {
+    "title": "a cart with one line offers checkout",
+    "status": "failed",
+    "durationMs": 5390,
+    "steps": [
+      { "line": 11, "title": "open the saved cart page", "status": "passed", "atMs": 0 },
+      { "line": 13, "title": "checkout-button is visible", "status": "failed", "atMs": 290 }
+    ],
+    "error": {
+      "line": 13,
+      "message": "expect(locator).toBeVisible() failed\nLocator: getByTestId('checkout-button')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found"
+    }
+  },
+  "history": [
+    {
+      "runId": "run-a6",
+      "startedAt": "2026-11-01T08:30:00Z",
+      "status": "passed",
+      "savedPage": "page-a.html"
+    }
+  ],
+  "attachments": ["observation-1.txt", "page-b.html"]
+}

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
+  },
+  "include": [
+    "playwright.config.ts",
+    "playwright.safety.config.ts",
+    "env/**/*.ts",
+    "pages/**/*.ts",
+    "tests/**/*.ts",
+    "safety/**/*.ts",
+    "scripts/**/*.ts"
+  ]
+}

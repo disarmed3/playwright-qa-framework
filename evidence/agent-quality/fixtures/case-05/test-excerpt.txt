@@ -1,0 +1,10 @@
+Synthetic practice input: excerpt of the local check that produced run-summary.json.
+Line numbers are those of the check file. The practice shopper has two past orders.
+
+ 5  test.use({ storageState: 'practice-session.json' }); // written by the setup step
+...
+30  test('a signed-in shopper sees the order history', async ({ page }) => {
+31    await page.goto('/account/orders');
+32    await expect(page.getByTestId('orders-heading')).toHaveText('Your orders');
+33    await expect(page.getByTestId('order-row')).toHaveCount(2);
+34  });

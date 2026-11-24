@@ -1,0 +1,8 @@
+# Shell scripts keep LF endings on every checkout; with CRLF, Bash fails on the first line ($'\r').
+*.sh text eol=lf
+# Agent-quality case fixtures keep LF endings: their recorded bundle hashes (rule 60, evidence/agent-quality/answers/) are of the LF bytes, so a CRLF checkout looks stale.
+evidence/agent-quality/fixtures/** text eol=lf
+# Flaky-triage fixtures keep LF endings: the triage-run test pins the hash of their LF bytes, so a CRLF checkout fails it.
+evidence/fixtures/flaky/** text eol=lf
+# The Codemify QA Dashboard kit stays byte-for-byte as delivered: its start.cmd needs CRLF and SHA256SUMS.txt pins the bytes (Week 6).
+tools/qa-dashboard/** -text

@@ -1,0 +1,27 @@
+# Sanitized native Playwright reports keep the reporter's own layout (Week 4 Task 01).
+evidence/*.sanitized.json
+# The supplied Jira seed pack stays as delivered.
+jira-seed/
+scripts/jira-seed.mjs
+# Written by the Claude hooks.
+vault/_changelog/
+# Managed spec notes (Task 11): the generator owns the block, people own the rest; Prettier owns neither.
+vault/tests/
+# Tool output and generated files.
+node_modules/
+test-results/
+playwright-report/
+.playwright-mcp/
+package-lock.json
+# Dated dev contract snapshots stay byte-for-byte as fetched (Week 3 Task 08; untracked).
+test-design/contract/
+# Agent-quality practice inputs and recorded worker replies stay byte-for-byte (Week 4 Task 03).
+evidence/agent-quality/fixtures/
+evidence/agent-quality/answers/
+# /triage-run replies stay byte-for-byte as the router recorded them (Week 4 Task 05).
+evidence/triage/synthetic/
+# SYNTHETIC flaky-triage fixtures stay byte-for-byte as generated (Week 4 Task 04).
+evidence/fixtures/
+# The Codemify QA Dashboard kit stays byte-for-byte as delivered (SHA256SUMS.txt); its config is written by the tool (Week 6).
+tools/qa-dashboard/
+qa-dashboard.config.json

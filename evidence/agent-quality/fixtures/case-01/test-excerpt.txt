@@ -1,0 +1,9 @@
+Synthetic practice input: excerpt of the local check that produced run-summary.json.
+Line numbers are those of the check file.
+
+40  test('a cart line shows quantity and line total', async ({ page }) => {
+41    await openCart(page); // loads the saved local cart page: one line, unit price €7.50, quantity 2
+42    const line = page.getByTestId('cart-line').first();
+43    await expect(line.getByTestId('line-qty')).toHaveText('2');
+44    await expect(line.getByTestId('line-total')).toHaveText('€15.00');
+45  });

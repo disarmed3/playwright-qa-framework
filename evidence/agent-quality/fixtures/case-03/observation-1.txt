@@ -1,0 +1,11 @@
+Synthetic practice input: accessibility snapshot of the local page at the failing step (line 13).
+
+- heading "Your cart" [level=1]
+- list "Cart lines":
+  - listitem:
+    - text: Trail Mug · Blue
+    - text: "Quantity 1"
+    - text: "Line total €12.00"
+    - button "Remove"
+- text: "Subtotal €12.00"
+- button "Proceed to checkout"

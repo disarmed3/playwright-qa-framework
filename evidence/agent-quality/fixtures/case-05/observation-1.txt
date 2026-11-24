@@ -1,0 +1,8 @@
+Synthetic practice input: accessibility snapshot of the local page at the failing step (line 32).
+Page address at that moment: /signin?next=%2Faccount%2Forders
+
+- status: "Your session has expired. Please sign in again."
+- heading "Sign in" [level=1]
+- textbox "Email"
+- textbox "Password"
+- button "Sign in"

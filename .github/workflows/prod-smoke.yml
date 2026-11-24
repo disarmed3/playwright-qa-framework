@@ -1,0 +1,118 @@
+# Optional production smoke (Week 5, optional check). Rule: .claude/rules/95-ci-workflow.md.
+# MANUAL ONLY: there is no push, pull_request or schedule trigger, and the core CI (ci.yml) is unchanged.
+# - It runs only from main, and only when the dispatch input is typed exactly. It fails loudly otherwise.
+# - The selection gate comes first. A tag is not eligibility: only entries in the reviewed allowlist
+#   (scripts/prod-smoke-allowlist.json) reach production, each re-checked as guest-only and read-only.
+#   The allowlist is empty today, so the gate stops the job before any browser is installed and before
+#   any request to production is made.
+# - The target is the existing resolver's prod route (npm run test:prod); BASE_URL is never set here.
+# - Guest only: no credential, no secret. Every dispatch needs the owner's approval in the conversation
+#   (rule 01): it reads production.
+name: Optional prod smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type READ-ONLY-PROD to confirm guest, read-only requests to production by owner-approved tests only'
+        type: string
+        required: true
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  prod-smoke:
+    name: Optional prod smoke (manual)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    concurrency:
+      group: qa-prod-target
+      cancel-in-progress: false
+    env:
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Confirm and check the branch
+        env:
+          CONFIRM: ${{ inputs.confirm }}
+          REF: ${{ github.ref }}
+        run: |
+          [ "$CONFIRM" = READ-ONLY-PROD ] || { echo 'The confirmation input is not exactly READ-ONLY-PROD; nothing was requested.'; exit 1; }
+          [ "$REF" = refs/heads/main ] || { echo 'This job runs only from main; nothing was requested.'; exit 1; }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Target settings stay unset
+        run: |
+          test -z "${BASE_URL-}" || { echo 'BASE_URL must be unset'; exit 1; }
+          test -z "${LOCAL_SANDBOX_DIR-}" || { echo 'LOCAL_SANDBOX_DIR must be unset'; exit 1; }
+          test -z "${APP_ENV-}" || { echo 'APP_ENV must be unset; the npm script pins it'; exit 1; }
+      - name: Install
+        run: npm ci
+      - name: Selection gate (approved read-only tests only)
+        id: select
+        run: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/prod-smoke-select.mjs --out "$RUNNER_TEMP/prod-args.txt" --github-output "$GITHUB_OUTPUT"
+      - name: Install Chromium only
+        run: npx playwright install --with-deps chromium
+      - name: Prepare
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw"
+          printf 'target: prod\n' > "$RUNNER_TEMP/pw/provenance.txt"
+          echo "QA_RUN_ID=$(date -u +%Y%m%dT%H%M%SZ)-$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')" >> "$GITHUB_ENV"
+      - name: Run the approved prod tests
+        id: pw
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_FILE: ${{ runner.temp }}/pw/report.json
+          PLAYWRIGHT_HTML_OUTPUT_DIR: ${{ runner.temp }}/pw/html
+          PLAYWRIGHT_HTML_OPEN: never
+        run: |
+          mapfile -t args < "$RUNNER_TEMP/prod-args.txt"
+          code=0
+          npm run test:prod -- "${args[@]}" --reporter=list,json,html || code=$?
+          echo "exit=$code" >> "$GITHUB_OUTPUT"
+          exit "$code"
+      - name: Scrub before upload
+        id: scrub
+        if: ${{ !cancelled() && steps.select.outcome == 'success' }}
+        run: node scripts/ci-summary.mjs scrub --html "$RUNNER_TEMP/pw/html" --json "$RUNNER_TEMP/pw/report.json" --withheld "$RUNNER_TEMP/pw/withheld.txt"
+      - name: Run summary
+        id: summary
+        if: ${{ !cancelled() && steps.select.outcome == 'success' }}
+        env:
+          PW_EXIT: ${{ steps.pw.outputs.exit }}
+        run: |
+          code=0
+          node scripts/ci-summary.mjs report --report "$RUNNER_TEMP/pw/report.json" --role prod-smoke --target prod \
+            --run-url "$RUN_URL" --sha "$GITHUB_SHA" --run-id "$QA_RUN_ID" --playwright-exit "$PW_EXIT" \
+            --html-dir "$RUNNER_TEMP/pw/html" --traces test-results --withheld "$RUNNER_TEMP/pw/withheld.txt" \
+            --out "$RUNNER_TEMP/pw/summary.md" || code=$?
+          cat "$RUNNER_TEMP/pw/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          exit "$code"
+      - name: Keep the native JSON report
+        if: ${{ !cancelled() && steps.select.outcome == 'success' && steps.scrub.outcome == 'success' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: prod-native-json
+          path: |
+            ${{ runner.temp }}/pw/report.json
+            ${{ runner.temp }}/pw/provenance.txt
+            ${{ runner.temp }}/pw/summary.md
+          if-no-files-found: error
+          retention-days: 14
+      - name: Keep the HTML report when available
+        if: ${{ !cancelled() && steps.select.outcome == 'success' && steps.scrub.outcome == 'success' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: prod-html-report
+          path: ${{ runner.temp }}/pw/html
+          if-no-files-found: warn
+          retention-days: 14

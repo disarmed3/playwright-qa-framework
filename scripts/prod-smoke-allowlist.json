@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "note": "Empty on purpose. A production test needs an entry here AND a spec that declares runIfEnv(test, ['prod']) and is guest-only and read-only; see .claude/rules/95-ci-workflow.md. No test is approved for production today.",
+  "approved": []
+}

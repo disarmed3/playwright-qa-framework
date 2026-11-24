@@ -1,0 +1,21 @@
+{
+  "synthetic": true,
+  "note": "Synthetic practice input; not from a real run.",
+  "runId": "run-m4",
+  "startedAt": "2026-11-08T10:05:00Z",
+  "project": "chromium",
+  "workers": 1,
+  "retries": 0,
+  "test": {
+    "title": "the product page shows name, price and add to cart",
+    "status": "passed",
+    "durationMs": 1240,
+    "steps": [
+      { "line": 61, "title": "open the saved product page", "status": "passed", "atMs": 0 },
+      { "line": 62, "title": "product-name has text \"Trail Mug\"", "status": "passed", "atMs": 280 },
+      { "line": 63, "title": "product-price has text \"€12.00\"", "status": "passed", "atMs": 300 },
+      { "line": 64, "title": "add-to-cart is enabled", "status": "passed", "atMs": 315 }
+    ]
+  },
+  "attachments": ["observation-1.txt", "page-a.html"]
+}

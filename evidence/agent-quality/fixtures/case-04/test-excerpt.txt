@@ -1,0 +1,9 @@
+Synthetic practice input: excerpt of the local check that produced run-summary.json.
+Line numbers are those of the check file.
+
+60  test('the product page shows name, price and add to cart', async ({ page }) => {
+61    await openProduct(page, 'trail-mug'); // loads the saved local product page (stock 5)
+62    await expect(page.getByTestId('product-name')).toHaveText('Trail Mug');
+63    await expect(page.getByTestId('product-price')).toHaveText('€12.00');
+64    await expect(page.getByTestId('add-to-cart')).toBeEnabled();
+65  });

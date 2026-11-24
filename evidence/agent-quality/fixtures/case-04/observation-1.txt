@@ -1,0 +1,6 @@
+Synthetic practice input: accessibility snapshot of the local page after the last step (line 64).
+
+- heading "Trail Mug" [level=1]
+- text: "€12.00"
+- text: "In stock: 5"
+- button "Add to cart"
