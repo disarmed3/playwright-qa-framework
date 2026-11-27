@@ -47,7 +47,7 @@ const HOME = 'tests/blog/home.smoke.spec.ts';
 const HOME_NOTE = 'vault/tests/blog/home.smoke.md';
 const CATEGORIES = 'tests/blog/categories.smoke.spec.ts';
 const CATEGORIES_NOTE = 'vault/tests/blog/categories.smoke.md';
-// Changed 2026-11-24 (owner's approval; evidence/week6-checks.md in tag week6-end, "Logins to the environment"): the tracked
+// Changed 2026-11-24 (owner's approval; recorded in pull request #8 of the course repository): the tracked
 // `.env.example` (names only, empty values) is exempt, as in .gitignore, the secret scan and the edit guard.
 // `.env`, `.env.local` and every other `.env.*` name still stop the copy.
 const SECRET_NAMES =

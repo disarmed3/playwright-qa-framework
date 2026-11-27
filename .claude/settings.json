@@ -26,8 +26,6 @@
       "PowerShell(npx playwright install *)",
       "PowerShell(git commit *)",
       "PowerShell(git push *)",
-      "Bash(node scripts/jira-seed.mjs *)",
-      "PowerShell(node scripts/jira-seed.mjs *)",
       "Bash(node scripts/jira/writeback.mjs execute *)",
       "PowerShell(node scripts/jira/writeback.mjs execute *)"
     ],

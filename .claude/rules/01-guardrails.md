@@ -42,8 +42,8 @@ No `paths:` restriction: these rules apply in every folder and every session.
 
 - Do: before acting, state the action, the system (dev app, Jira, Slack, …) and the records it touches;
   wait for approval. Approval covers only that described activity — not later or unrelated changes.
-- When: running a test that changes dev data; a real `node scripts/jira-seed.mjs` run (without
-  `--dry-run`); submitting a form with the MCP browser; `npm run test:prod`; any Slack or Jira write.
+- When: running a test that changes dev data; submitting a form with the MCP browser; `npm run test:prod`;
+  any Slack or Jira write.
 - Verify: the conversation shows the description and the approval before the action.
 - ⚠️ `npm test` is pre-allowed in [.claude/settings.json](../settings.json). Running the suite changes
   dev data with no permission prompt; only this rule stops it.

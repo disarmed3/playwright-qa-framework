@@ -5,42 +5,33 @@ type: source
 
 # Starting data (dated 2026-10-15)
 
-Expected starting state of the shared course database. Received from the course mentor as a
-screenshot on 2026-10-29 (Week 3 Task 07); the text below is copied word for word. The mentor names
-the course seed files `db/seed.sql` and `db/seed-store.sql` as its source. Those files are not in this
-repository and were not read, so the list cannot be checked against them here.
+Expected starting state of the shared dev database, as confirmed by the database's maintainers on
+2026-10-29 and 2026-10-30. Their source is the seed files `db/seed.sql` and `db/seed-store.sql` and the
+grant file `db/student-role.sql`; those files are not in this repository and were not read, so the list
+cannot be checked against them here.
 
-Environment: the dev database behind dev.ai-orchestration-courses.com, confirmed in writing by the
-mentor on 2026-10-29 (connection details are not recorded).
+Environment: the dev database behind dev.ai-orchestration-courses.com, confirmed in writing on
+2026-10-29 (connection details are not recorded).
 
-## Mentor's text
+## Seeded state
 
-> **Starting data (dated 2026-10-15)**
->
-> In Week 3 Task 07, save this as `vault/sources/database/starting-data.md`. Source: the course seed
-> files `db/seed.sql` and `db/seed-store.sql`.
->
-> - 12 tables: users, categories, articles, comments, products, product_variants, coupons, carts,
->   cart_items, orders, order_items, payments.
-> - users: 4. categories: 4. articles: 7 (6 published, 1 draft). comments: 4.
-> - products: 8. Prices in cents: tee 2500, hoodie 4500, mug 1200, stickers 600, cap 2000, tote 1500,
->   bottle 1800, notebook 900.
-> - product_variants: 14. Sold out: hoodie XL and the water bottle.
-> - coupons: 3. SAVE10 = 10 % off. WELCOME5 = $5 off from $25. EXPIRED10 = expired.
-> - carts, cart_items, orders, order_items, payments: empty at seed time.
-> - Shared database: counts can differ on the day. Record a difference; never reset.
+- 12 tables: users, categories, articles, comments, products, product_variants, coupons, carts,
+  cart_items, orders, order_items, payments.
+- users: 4. categories: 4. articles: 7 (6 published, 1 draft). comments: 4.
+- products: 8. Prices in cents: tee 2500, hoodie 4500, mug 1200, stickers 600, cap 2000, tote 1500,
+  bottle 1800, notebook 900.
+- product_variants: 14. Sold out: hoodie XL and the water bottle.
+- coupons: 3. SAVE10 = 10 % off. WELCOME5 = $5 off from $25. EXPIRED10 = expired.
+- carts, cart_items, orders, order_items, payments: empty at seed time.
+- The database is shared: counts can differ on the day. Record a difference; never reset.
 
-## Mentor's answers (2026-10-30)
+## Details and rules
 
-Two replies on 2026-10-30 to the open questions of this note. Source named by the mentor: the course
-seed files `db/seed.sql` and `db/seed-store.sql` and the grant file `db/student-role.sql` (not in this
-repository, not read). Summary of the facts; the second reply corrects the first on prices.
-
-| Topic          | Answer                                                                                                                                                                                                                           |
+| Topic          | Fact                                                                                                                                                                                                                             |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Product slugs  | All 8 confirmed: see the table below.                                                                                                                                                                                            |
 | Drift or fixed | Drift is only for values that change in normal use: stock and row counts. Prices, coupon terms and the products' `active` flags are fixed: a difference is a data mismatch.                                                      |
-| Data mismatch  | The check fails; record it, keep the expected value, never reset, and tell the mentor.                                                                                                                                           |
+| Data mismatch  | The check fails; record it, keep the expected value, never reset, and tell the database's maintainers.                                                                                                                           |
 | Stock          | Only a paid checkout changes stock. Available variants: check `stock > 0`, not an exact number.                                                                                                                                  |
 | Sold out       | Hoodie: the variant with label `XL`, stock 0. Water bottle: only one variant, label `One Size`, stock 0. Both products stay `active = true`.                                                                                     |
 | SAVE10         | kind `percent`, value 10, `min_subtotal_cents` 0, active true, `expires_at` NULL                                                                                                                                                 |
@@ -61,7 +52,7 @@ repository, not read). Summary of the facts; the second reply corrects the first
 | bottle     | `flaky-free-water-bottle` |
 | notebook   | `vault-notebook`          |
 
-## Seed facts (read by the Task 07 scripts)
+## Seed facts (read by the inspection scripts and `tests/support/seed-facts.ts`)
 
 `scripts/seed-integrity.sh` and `scripts/verify-student-fence.sh` read the block below; no expected
 value is repeated in a script. One row per fact: `check|key|expected|class|status`.
@@ -69,7 +60,7 @@ value is repeated in a script. One row per fact: `check|key|expected|class|statu
 - `class`: `drift` = stock or a row count, which change in normal use (a difference is recorded as
   DRIFT with today's value and date, never reset); `fixed` = every other fact (a difference is a
   DATA_MISMATCH: the check fails, the expected value stays, nothing is reset).
-- `status`: `approved` = the value and its mapping come from the mentor's text or answers above. Any
+- `status`: `approved` = the value and its mapping come from the confirmed facts above. Any
   other status is reported as UNVERIFIED and not queried.
 - Keys: `price` and `active` by product slug; `stock_zero` as `slug:variant label`; `variant_count` by
   product slug; `coupon` and `coupon_expired` by code; `orphans` as `child.column>parent.column`

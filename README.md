@@ -69,19 +69,19 @@ syntax, not what a helper does. The `DEVELOPMENT` banner check is a test, not a 
 
 ## Project layout
 
-| Path                                | What it holds                                                                         |
-| ----------------------------------- | ------------------------------------------------------------------------------------- |
-| `tests/`                            | The specs: `blog/`, `blog/api/`, `store/api/`, `store/ui/`, `db/`; `support/` helpers |
-| `pages/`                            | Page Objects, one class per page                                                      |
-| `env/`                              | `target.ts` (the only target definition), `runIfEnv.ts`, `envGuard.ts`                |
-| `safety/`, `safety-tests/`          | Isolated checks (Playwright with its own config, and `node:test`)                     |
-| `scripts/`                          | Hooks, the environment checker, triage, Slack reporter, Jira tools, CI helpers        |
-| `vault/`                            | Knowledge base: case catalog, requirement notes, guides, playbooks, one note per spec |
-| `test-design/`                      | Requirement inputs and reviewed test designs                                          |
-| `evidence/`                         | Inputs the tools and their checks read: fixtures, sanitized reports, practice cases   |
-| `.claude/`                          | Rules, commands, the test-designer agent, hook settings                               |
-| `.husky/`, `.github/workflows/`     | Git hooks; CI                                                                         |
-| `tools/qa-dashboard/`, `jira-seed/` | The dashboard kit; the Jira backlog seed pack                                         |
+| Path                            | What it holds                                                                         |
+| ------------------------------- | ------------------------------------------------------------------------------------- |
+| `tests/`                        | The specs: `blog/`, `blog/api/`, `store/api/`, `store/ui/`, `db/`; `support/` helpers |
+| `pages/`                        | Page Objects, one class per page                                                      |
+| `env/`                          | `target.ts` (the only target definition), `runIfEnv.ts`, `envGuard.ts`                |
+| `safety/`, `safety-tests/`      | Isolated checks (Playwright with its own config, and `node:test`)                     |
+| `scripts/`                      | Hooks, the environment checker, triage, Slack reporter, Jira tools, CI helpers        |
+| `vault/`                        | Knowledge base: case catalog, requirement notes, guides, playbooks, one note per spec |
+| `test-design/`                  | Requirement inputs and reviewed test designs                                          |
+| `evidence/`                     | Inputs the tools and their checks read: fixtures, sanitized reports, practice cases   |
+| `.claude/`                      | Rules, commands, the test-designer agent, hook settings                               |
+| `.husky/`, `.github/workflows/` | Git hooks; CI                                                                         |
+| `tools/qa-dashboard/`           | The dashboard kit                                                                     |
 
 Start reading the vault at [vault/\_map.md](vault/_map.md).
 
@@ -128,7 +128,6 @@ not a required check.
 
 | Path                                                    | Compile | Lint     | Format   | Secret scan |
 | ------------------------------------------------------- | ------- | -------- | -------- | ----------- |
-| `jira-seed/**`, `scripts/jira-seed.mjs` (supplied pack) | —       | excluded | excluded | **scanned** |
 | `tools/qa-dashboard/`, `qa-dashboard.config.json`       | —       | excluded | excluded | **scanned** |
 | `vault/_changelog/`, `vault/12-progress-report/` (logs) | —       | —        | —        | not tracked |
 
@@ -172,6 +171,8 @@ terminal (answer Y if Windows asks `Terminate batch job`). Use `--port 4180` whe
 
 ## History
 
-Built week by week during a six-week QA automation course. The tags `week1-end` to `week6-end` hold each
-graded state, with its weekly notes, run records and the dated history of every rule; the main branch holds
-the framework itself.
+Built week by week during a six-week QA automation course. This repository starts from one commit of the
+finished framework. The course history — each graded state (tags `week1-end` to `week6-end`), the weekly
+notes, run records and the dated history of every rule — is kept in a private course repository. Notes that
+cite "(tag `week6-end`)" or an `evidence/…` note refer to that private history. The Jira backlog seed kit used
+during the course is not included.

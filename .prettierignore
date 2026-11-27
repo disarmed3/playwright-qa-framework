@@ -1,8 +1,5 @@
 # Sanitized native Playwright reports keep the reporter's own layout (Week 4 Task 01).
 evidence/*.sanitized.json
-# The supplied Jira seed pack stays as delivered.
-jira-seed/
-scripts/jira-seed.mjs
 # Written by the Claude hooks.
 vault/_changelog/
 # Managed spec notes (Task 11): the generator owns the block, people own the rest; Prettier owns neither.

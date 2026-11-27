@@ -30,9 +30,6 @@ export default defineConfig(
       'test-results/**',
       'playwright-report/**',
       '.playwright-mcp/**',
-      // The supplied Jira seed pack stays as delivered.
-      'jira-seed/**',
-      'scripts/jira-seed.mjs',
       'vault/**',
     ],
   },
