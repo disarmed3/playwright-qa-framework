@@ -9,7 +9,7 @@ paths:
 # Test data
 
 Applies to browser tests and Page Objects that read or create data, shared test data in
-`tests/support/`, and setup tooling in `scripts/` and `jira-seed/`. Blog API and browser tests create their
+`tests/support/`, and setup tooling in `scripts/`. Blog API and browser tests create their
 own articles and comments through the contract's API (`tests/support/api.ts`, `ownedArticles`), named
 `qa-auto-<runId>-<testId>` and deleted in fixture teardown; store tests use their own guest carts
 (`tests/support/store.ts`). Every write also follows `.claude/rules/01-guardrails.md` (dev only, `envGuard`,
@@ -53,9 +53,9 @@ approval).
 
 ## Approved setup tooling only
 
-- Do: use only setup scripts and APIs the project designates and records: `scripts/jira-seed.mjs` (Jira;
-  `--dry-run` is offline, a real run needs approval) and the contract's own API through `tests/support/`.
-  No separate app setup API exists.
+- Do: use only the setup route the project designates and records: the contract's own API through
+  `tests/support/`. No separate app setup API exists. (The Jira backlog seed script used to create the
+  backlog is not part of this repository.)
 - When: preparing data outside the test body (scripts, APIs, seed tools).
 - Verify: review against this list.
 

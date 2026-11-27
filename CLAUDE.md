@@ -32,14 +32,13 @@ Playwright + TypeScript tests (browser, API, opt-in database) for one site with 
 - `npm test` (dev) · `test:list` (runs nothing) · `typecheck` · `lint` (any warning fails) · `format:check` · `check:env-gates`
   (`runIfEnv` first in every describe, writes inside `envGuard`) · `test:safety` (no browser, no network) ·
   `test:git-hooks` · `vault:sync` · `vault:check` · `vault:validate`
-- Run alone with `node --test safety-tests/<name>.test.mjs`: `triage-run`, `triage-draft`, `flaky-triage`, `quality-run`,
-  `agent-quality-bundle`, `slack-report`, `ci-summary`, `ci-workflow`, `prod-smoke`, `jira-writeback`, `jira-traceability`, `jira-bug-draft`.
+- Run alone (`node --test safety-tests/<name>.test.mjs`): the triage, quality, Slack, CI, prod-smoke and Jira suites.
 - Typed by the owner only (`disable-model-invocation`): `/adopt-test`, `/design-tests`, `/cover`, `/self-heal`,
   `/quality-review`, `/flaky-triage`, `/triage-run`, `/triage-draft`, `/writeback` (proposes only). `/traceability`
   reads Jira; `/report-bug` previews and never files.
 - Only with explicit approval in this conversation: `npm run test:prod`; `QA_DB=1 npm test -- tests/db`; Slack
-  `--check-connection` or `--send` (rule 90); a model call by `/triage-draft` or `quality-run.mjs` (rules 60, 80); a real
-  `scripts/jira-seed.mjs`; `writeback.mjs execute`, run by the owner in their own terminal (rule 55).
+  `--check-connection` or `--send` (rule 90); a model call by `/triage-draft` or `quality-run.mjs` (rules 60, 80);
+  `writeback.mjs execute`, run by the owner in their own terminal (rule 55).
 
 ## Rule files (loaded automatically)
 
@@ -47,7 +46,7 @@ Playwright + TypeScript tests (browser, API, opt-in database) for one site with 
 | ---------------------------- | ------------------------------------------------------------------------------------- |
 | `01-guardrails.md`           | Always, in every folder                                                               |
 | `10-playwright-pom.md`       | Editing `tests/` or `pages/`                                                          |
-| `20-data-management.md`      | Tests or Page Objects that read or create data; `scripts/`, `jira-seed/`              |
+| `20-data-management.md`      | Tests or Page Objects that read or create data; `scripts/`                            |
 | `30-test-names.md`           | Adding or renaming a test in `tests/**/*.spec.ts`                                     |
 | `40-db-postgres.md`          | Always: any database access                                                           |
 | `45-test-design.md`          | Test design in `test-design/`; reading the case catalog for a design                  |

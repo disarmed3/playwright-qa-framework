@@ -84,8 +84,8 @@ below.
   command, not a Bash call), an ask rule on a script, a curl deny rule (`node -e fetch(...)` bypasses it).
 - The write token is an ordinary Atlassian API token. It can do more than comment; the script limits what
   this route sends, not what the token could do elsewhere. Another script holding it is outside this route.
-- Applied in `.claude/settings.json`: deny the whole claude.ai Atlassian connector and curl/wget/Invoke-* to atlassian hosts; ask for `scripts/jira-seed.mjs` and `writeback.mjs execute`. Tested: the
-  curl and Invoke-WebRequest denials refused and the connector vanished from the session. Not tested: the two ask entries (a prompt, not a
+- Applied in `.claude/settings.json`: deny the whole claude.ai Atlassian connector and curl/wget/Invoke-* to atlassian hosts; ask for `writeback.mjs execute`. Tested: the
+  curl and Invoke-WebRequest denials refused and the connector vanished from the session. Not tested: the ask entry (a prompt, not a
   refusal) and anything outside Claude (the owner's terminal, `node -e fetch`).
 - Do not call a writable connector or REST directly to get around this route.
 

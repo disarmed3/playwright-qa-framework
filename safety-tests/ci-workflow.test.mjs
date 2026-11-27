@@ -81,8 +81,8 @@ describe('target and inputs', () => {
     assert.doesNotMatch(codeText, /APP_ENV=/);
   });
 
-  // Changed 2026-11-24 (owner's approval, CROSS-IMPACT in evidence/week6-checks.md in tag week6-end, "Logins to the
-  // environment"): `secrets.` was forbidden everywhere; now only the six teaching-login names are allowed,
+  // Changed 2026-11-24 (owner's approval, CROSS-IMPACT recorded in pull request #8 of the course repository):
+  // `secrets.` was forbidden everywhere; now only the six teaching-login names are allowed,
   // each as `NAME: ${{ secrets.NAME }}`, in exactly the two browser steps below. Any other secret fails.
   test('the only secrets are the six teaching logins, in the dev-test and scrub steps of `browser`', () => {
     const LOGINS = [
